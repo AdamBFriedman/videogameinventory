@@ -1,11 +1,17 @@
 const express = require("express");
 const app = express();
 const path = require('path');
-const { logger } = require('./middleware/logEvents')
+const cors = require('cors');
+const errorHandler = require("./middleware/errorHandler");
+const { logger } = require('./middleware/logEvents');
+const corsOptions = require("./config/corsOptions");
 const PORT = process.env.PORT || 8000;
 
 // Custom logger
 app.use(logger);
+
+// Cross Origin Resource Sharing
+app.use(cors(corsOptions))
 
 // Routes
 app.use("/", require("./routes/root"));
@@ -20,6 +26,9 @@ app.all("*", (req, res) => {
     } else {
       res.type("txt").send("404: Not Found");
     }
-  });
+});
+
+// Custom error handling
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
