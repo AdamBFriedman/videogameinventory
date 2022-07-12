@@ -27,3 +27,4 @@ yarn-debug.log*
 yarn-error.log*
 logs/reqLog.txt
 logs/reqLog.txt
+*.txt
