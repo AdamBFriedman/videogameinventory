@@ -1,5 +1,5 @@
 const data = {
-    games: require("../../../model/games.json"),
+    games: require("../model/games.json"),
     setGames: function (data) {
       this.games = data;
     },

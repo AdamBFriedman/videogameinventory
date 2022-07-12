@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllGames, addGame, updateGame, deleteGame, getGame } = require('./controllers/gamesController');
+const { getAllGames, addGame, updateGame, deleteGame, getGame } = require('../../controllers/gamesController');
 const router = express.Router();
 
 router.route('/')
