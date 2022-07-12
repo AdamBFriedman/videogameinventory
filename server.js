@@ -13,6 +13,15 @@ app.use(logger);
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions))
 
+// Handle form data
+app.use(express.urlencoded({ extended: false }));
+
+// Handle json data
+app.use(express.json());
+
+// Serve static files
+app.use(express.static(path.join(__dirname, "/public")));
+
 // Routes
 app.use("/", require("./routes/root"));
 
