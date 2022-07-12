@@ -28,3 +28,4 @@ yarn-error.log*
 logs/reqLog.txt
 logs/reqLog.txt
 *.txt
+logs/reqLog.txt
