@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Super Mario Bros",
+    "platform": "Nintendo"
+  },
+  {
+    "id": 2,
+    "name": "Super Mario Bros 2",
+    "platform": "Nintendo"
+  },
+  {
+    "id": 3,
+    "name": "Super Mario Bros 3",
+    "platform": "Nintendo"
+  }
+]
