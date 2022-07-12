@@ -20,10 +20,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Serve static files
-app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Routes
 app.use("/", require("./routes/root"));
+app.use("/games", require("./routes/api/games"));
 
 // Error routes
 app.all("*", (req, res) => {
