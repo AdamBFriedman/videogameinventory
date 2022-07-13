@@ -13,5 +13,50 @@
     "id": 3,
     "name": "Super Mario Bros 3",
     "platform": "Nintendo"
+  },
+  {
+    "id": 4,
+    "name": "Sonic the Hedgehog",
+    "platform": "Sega Genesis"
+  },
+  {
+    "id": 5,
+    "name": "Sonic the Hedgehog 2",
+    "platform": "Sega Genesis"
+  },
+  {
+    "id": 6,
+    "name": "Sonic the Hedgehog 3",
+    "platform": "Sega Genesis"
+  },
+  {
+    "id": 7,
+    "name": "Castlevania",
+    "platform": "Nintendo"
+  },
+  {
+    "id": 8,
+    "name": "Castlevania 2",
+    "platform": "Nintendo"
+  },
+  {
+    "id": 9,
+    "name": "Castlevania 3",
+    "platform": "Nintendo"
+  },
+  {
+    "id": 10,
+    "name": "Donkey Kong 64",
+    "platform": "Nintendo 64"
+  },
+  {
+    "id": 11,
+    "name": "Super Mario 64",
+    "platform": "Nintendo 64"
+  },
+  {
+    "id": 12,
+    "name": "Mario Kart 64",
+    "platform": "Nintendo 64"
   }
 ]

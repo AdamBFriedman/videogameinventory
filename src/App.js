@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { fetchGames } from "./api/games";
 import "./App.css";
+import { GamesTable } from "./components/gamesTable";
+import Box from "@mui/material/Box"
 
 function App() {
   const [games, setGames] = useState([]);
@@ -18,14 +20,10 @@ function App() {
   }, [])
   
   return (
-    <div className="App">
+    <Box>
       <h1>Video Games</h1>
-      <ul>
-        {games.map((game) => (
-          <li key={game.id}>{game.name}</li>
-        ))}
-      </ul>
-    </div>
+      <GamesTable games={games} />
+    </Box>
   );
 }
 
