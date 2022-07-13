@@ -15,7 +15,7 @@ function App() {
       }
     }
     getGames()
-  }, [games])
+  }, [])
   
   return (
     <div className="App">
