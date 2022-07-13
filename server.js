@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 // Routes
 app.use("/", require("./routes/root"));
 app.use("/register", require("./routes/register"));
+app.use("/auth", require("./routes/auth"));
 app.use("/games", require("./routes/api/games"));
 
 // Error routes
