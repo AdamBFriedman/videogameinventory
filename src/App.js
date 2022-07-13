@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { fetchGames } from "./api/games";
 import "./App.css";
-
-const url = "http://localhost:8000/games";
-const options = {
-  method: "GET",
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json;charset=UTF-8",
-  },
-};
 
 function App() {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    fetch(url, options)
-    .then((response) => response.json())
-    .then((data) => {
-      setGames(data);
-    });
-  }, [])
+    const getGames = async () => {
+      try {
+        const fetchedGames = await fetchGames()
+        setGames(fetchedGames)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getGames()
+  }, [games])
   
   return (
     <div className="App">
