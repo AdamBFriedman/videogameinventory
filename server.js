@@ -5,6 +5,7 @@ const cors = require('cors');
 const errorHandler = require("./middleware/errorHandler");
 const { logger } = require('./middleware/logEvents');
 const corsOptions = require("./config/corsOptions");
+const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 8000;
 
 // Custom logger
@@ -19,6 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 // Handle json data
 app.use(express.json());
 
+// Middleware for cookies
+app.use(cookieParser());
+
 // Serve static files
 app.use(express.static(path.join(__dirname, '../client/build')));
 
@@ -26,6 +30,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 app.use("/", require("./routes/root"));
 app.use("/register", require("./routes/register"));
 app.use("/auth", require("./routes/auth"));
+app.use("/refresh", require("./routes/refresh"));
 app.use("/games", require("./routes/api/games"));
 
 // Error routes

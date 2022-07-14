@@ -37315,3 +37315,14 @@
 20220712	19:51:50	d7c4cbe8-0deb-4fc6-93d9-f54a891e3b32	GET	http://localhost:3000	/games
 20220712	19:51:50	2572602d-b7e7-4e97-9539-2eda4ea95d86	GET	http://localhost:3000	/games
 20220712	19:51:50	d839aaac-3aba-46c6-b5b9-b076398450eb	GET	http://localhost:3000	/games
+20220713	22:13:22	bc05a1a8-d00d-4503-9133-4c03b9c1fddf	POST	undefined	/auth
+20220713	22:13:45	e9639b70-fff2-446f-a3a1-fb4498c3df8b	GET	undefined	/refresh
+20220713	22:13:47	c42927da-4946-40c2-abc1-28473c03f821	GET	undefined	/refresh
+20220713	22:13:47	4977a812-2e84-45ff-aaa2-4e6544cabd72	GET	undefined	/refresh
+20220713	22:13:48	d21c1a4c-5c4c-48ed-9159-550440eef7cf	GET	undefined	/refresh
+20220713	22:13:49	dc459136-a782-4a48-8d12-db74cb9aacff	GET	undefined	/refresh
+20220713	22:13:50	7f8881cf-1e35-4108-be71-5c330d9f8369	GET	undefined	/refresh
+20220713	22:13:50	6e913d29-31a2-4f8e-96f6-113bfd47d0c0	GET	undefined	/refresh
+20220713	22:13:51	83dc904c-228a-4d1c-9537-7f2cad850595	GET	undefined	/refresh
+20220713	22:13:52	c032ac7d-d8c9-4127-a170-68a1460f3b6b	GET	undefined	/refresh
+20220713	22:13:53	8d8b18a4-aed4-4aa4-a5c2-198cb4efea99	GET	undefined	/refresh
