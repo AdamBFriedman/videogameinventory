@@ -1,40 +1,30 @@
-const usersDB = {
-  users: require("../model/users.json"),
-  setUsers: function(data) {
-    this.users = data;
-  },
-};
-const fsPromises = require("fs").promises;
-const path = require("path");
-const bcrypt = require("bcrypt");
+const User = require('../model/User');
+const bcrypt = require('bcrypt');
 
 const handleNewUser = async (req, res) => {
-  const { user, pwd } = req.body;
-  if (!user || !pwd)
-    return res
-      .status(400)
-      .json({ message: "Username and Password are require." });
+    const { user, pwd } = req.body;
+    if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are required.' });
 
-  // Check for duplicates
-  const duplicate = usersDB.users.find((person) => person.username === user);
+    // check for duplicate usernames in the db
+    const duplicate = await User.findOne({ username: user }).exec();
+    if (duplicate) return res.sendStatus(409); //Conflict 
 
-  if (duplicate) return res.status(409).json({ error: `This user already exists.` }); // Conflict
-  try {
-    // Encrypt the password
-    const hashedPwd = await bcrypt.hash(pwd, 10);
-    // Store the new user
-    const newUser = { username: user, password: hashedPwd };
-    usersDB.setUsers([...usersDB.users, newUser]);
+    try {
+        //encrypt the password
+        const hashedPwd = await bcrypt.hash(pwd, 10);
 
-    await fsPromises.writeFile(
-      path.join(__dirname, "..", "model", "users.json"),
-      JSON.stringify(usersDB.users)
-    );
+        //create and store the new user
+        const result = await User.create({
+            "username": user,
+            "password": hashedPwd
+        });
 
-    res.status(201).json({ success: `New user ${user} has been created!` });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+        console.log(result);
 
-module.exports = { handleNewUser}
+        res.status(201).json({ 'success': `New user ${user} created!` });
+    } catch (err) {
+        res.status(500).json({ 'message': err.message });
+    }
+}
+
+module.exports = { handleNewUser };

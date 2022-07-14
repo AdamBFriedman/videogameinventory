@@ -37386,3 +37386,5 @@
 20220713	22:33:25	82ffc814-79d9-47cc-aaab-1db5662ccdd3	GET	undefined	/logout
 20220713	22:33:28	121adb33-384b-4bd5-8ffb-8cccdb9b4ea2	GET	undefined	/refresh
 20220713	22:33:28	6499334d-0872-45c1-8b7e-78350df34334	GET	undefined	/refresh
+20220714	15:45:11	b0a3593f-a936-48fc-a947-89e09616cb3d	POST	undefined	/auth
+20220714	15:45:35	e530bc04-347a-465e-87d6-2be4f1bc1263	POST	undefined	/register
