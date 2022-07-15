@@ -4,10 +4,10 @@ const router = express.Router();
 const verifyJWT = require('../../middleware/verifyJWT')
 
 router.route('/')
-.get(verifyJWT, getAllGames)
-.post(addGame)
-.put(updateGame)
-.delete(deleteGame)
+.get(getAllGames)
+.post(verifyJWT, addGame)
+.put(verifyJWT, updateGame)
+.delete(verifyJWT, deleteGame)
 
 router.route('/:id').get(getGame)
 
