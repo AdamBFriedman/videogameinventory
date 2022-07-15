@@ -1,84 +1,68 @@
-const data = {
-    games: require("../model/games.json"),
-    setGames: function (data) {
-      this.games = data;
-    },
-  };
-  
-  const getAllGames = (req, res) => {
-    res.json(data.games);
-  };
-  
-  const addGame = (req, res) => {
-    const newGame = {
-      id: data.games?.length
-        ? data.games[data.games.length - 1].id + 1
-        : 1,
-      name: req.body.name,
-      platform: req.body.platform,
-    };
-  
-    if (!newGame.name || !newGame.platform) {
-      return res.status(400).json({ message: "Name and platform are required." });
+const Game = require('../model/Game');
+
+const getAllGames = async (req, res) => {
+    const games = await Game.find();
+    if (!games) return res.status(204).json({ 'message': 'No games found.' });
+    res.json(games);
+}
+
+const addGame = async (req, res) => {
+    if (!req?.body?.name || !req?.body?.platform) {
+        return res.status(400).json({ 'message': 'Name and Platform are required!' });
     }
-    console.log(newGame);
-    data.setGames([...data.games, newGame]);
-    res.status(201).json(data.games);
-  };
-  
-  const updateGame = (req, res) => {
-    const game = data.games.find(
-      (game) => game.id === parseInt(req.body.id)
-    );
-    if (!game) {
-      return res
-        .status(400)
-        .json({ message: `Game ID ${req.body.id} not found` });
+
+    try {
+        const result = await Game.create({
+            name: req.body.name,
+            platform: req.body.platform
+        });
+
+        res.status(201).json(result);
+    } catch (err) {
+        console.error(err);
     }
-    if (req.body.name) game.name = req.body.name;
-    if (req.body.platform) game.platform = req.body.platform;
-    const filteredArray = data.games.filter(
-      (game) => game.id !== parseInt(req.body.id)
-    );
-    const unsortedArray = [...filteredArray, game];
-    data.setGames(
-      unsortedArray.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-    );
-    res.json(data.games);
-  };
-  
-  const deleteGame = (req, res) => {
-    const game = data.games.find(
-      (emp) => emp.id === parseInt(req.body.id)
-    );
-    if (!game) {
-      return res
-        .status(400)
-        .json({ message: `Game ID ${req.body.id} not found` });
+}
+
+const updateGame = async (req, res) => {
+    if (!req?.body?.id) {
+        return res.status(400).json({ 'message': 'ID parameter is required.' });
     }
-    const filteredArray = data.games.filter(
-      (emp) => emp.id !== parseInt(req.body.id)
-    );
-    data.setGames([...filteredArray]);
-    res.json(data.games);
-  };
-  
-  const getGame = (req, res) => {
-    const game = data.games.find(
-      (emp) => emp.id === parseInt(req.params.id)
-    );
+
+    const game = await Game.findOne({ _id: req.body.id }).exec();
     if (!game) {
-      return res
-        .status(400)
-        .json({ message: `Game ID ${req.params.id} not found` });
+        return res.status(204).json({ "message": `No game matches ID ${req.body.id}.` });
+    }
+    if (req.body?.name) game.name = req.body.name;
+    if (req.body?.platform) game.platform = req.body.platform;
+    const result = await game.save();
+    res.json(result);
+}
+
+const deleteGame = async (req, res) => {
+    if (!req?.body?.id) return res.status(400).json({ 'message': 'Game ID required.' });
+
+    const game = await Game.findOne({ _id: req.body.id }).exec();
+    if (!game) {
+        return res.status(204).json({ "message": `No game matches ID ${req.body.id}.` });
+    }
+    const result = await game.deleteOne(); //{ _id: req.body.id }
+    res.json(result);
+}
+
+const getGame = async (req, res) => {
+    if (!req?.params?.id) return res.status(400).json({ 'message': 'Game ID required.' });
+
+    const game = await Game.findOne({ _id: req.params.id }).exec();
+    if (!game) {
+        return res.status(204).json({ "message": `No game matches ID ${req.params.id}.` });
     }
     res.json(game);
-  };
-  
-  module.exports = {
+}
+
+module.exports = {
     getAllGames,
-    getGame,
     addGame,
     updateGame,
     deleteGame,
-  };
+    getGame
+}
