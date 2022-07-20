@@ -9,14 +9,14 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import TableFooterPagination from "./tableFooterPagination";
 
-const renderTableRow = ({ _id, name, platform }) => {
+const renderTableRow = ({ _id, title, platform }) => {
   return (
     <TableRow
       key={_id}
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
     >
       <TableCell>
-        <Typography>{name}</Typography>
+        <Typography>{title}</Typography>
       </TableCell>
       <TableCell>
         <Typography>{platform}</Typography>

@@ -7,13 +7,13 @@ const getAllGames = async (req, res) => {
 }
 
 const addGame = async (req, res) => {
-    if (!req?.body?.name || !req?.body?.platform) {
-        return res.status(400).json({ 'message': 'Name and Platform are required!' });
+    if (!req?.body?.title || !req?.body?.platform) {
+        return res.status(400).json({ 'message': 'Title and Platform are required!' });
     }
 
     try {
         const result = await Game.create({
-            name: req.body.name,
+            title: req.body.title,
             platform: req.body.platform
         });
 
@@ -32,7 +32,7 @@ const updateGame = async (req, res) => {
     if (!game) {
         return res.status(204).json({ "message": `No game matches ID ${req.body.id}.` });
     }
-    if (req.body?.name) game.name = req.body.name;
+    if (req.body?.title) game.title = req.body.title;
     if (req.body?.platform) game.platform = req.body.platform;
     const result = await game.save();
     res.json(result);

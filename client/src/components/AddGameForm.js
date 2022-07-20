@@ -15,7 +15,7 @@ export const addGame = async (title, platform) => {
     method: "POST",
     headers: getHeadersWithAuth(),
     body: JSON.stringify({
-      name: title,
+      title,
       platform,
     }),
   }).then(handleErrors);
