@@ -9,7 +9,7 @@ import './App.css';
 import { GamesTable } from './components/gamesTable';
 import Box from '@mui/material/Box';
 import AddGameForm from './components/AddGameForm';
-import Login from './components/Login';
+import LoginForm from './components/LoginForm';
 
 function App() {
   const [games, setGames] = useState([]);
@@ -37,7 +37,7 @@ function App() {
               <Box>
                 <h1>Video Games</h1>
                 <AddGameForm games={games} />
-                <Login />
+                <LoginForm />
                 <GamesTable games={games} />
               </Box>
             }

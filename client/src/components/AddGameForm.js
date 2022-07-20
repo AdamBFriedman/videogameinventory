@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Box from "@mui/material/Box";
-import { getHeadersWithAuth } from "./Login";
-import { handleErrors } from "./Login";
+import React, { useState } from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Box from '@mui/material/Box';
+import { getHeadersWithAuth } from './LoginForm';
+import { handleErrors } from './LoginForm';
 
 export const addGame = async (title, platform) => {
-  return await fetch("http://localhost:8000/games", {
-    method: "POST",
+  return await fetch('http://localhost:8000/games', {
+    method: 'POST',
     headers: getHeadersWithAuth(),
     body: JSON.stringify({
       title,
@@ -22,8 +22,8 @@ export const addGame = async (title, platform) => {
 
 export default function AddGameForm({ games }) {
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [platform, setPlatform] = useState("");
+  const [title, setTitle] = useState('');
+  const [platform, setPlatform] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,14 +36,16 @@ export default function AddGameForm({ games }) {
   const handleAddGame = async () => {
     const duplicate = games.find((game) => game.title === title);
     if (duplicate) {
-      alert("Error: There is already a game with this title in your database.");
+      alert(
+        'Error: There is already a game with this title in your database.'
+      );
       return;
     }
     try {
       const createGame = await addGame(title, platform);
       if (createGame) {
-        alert("Game successfully added.");
-        handleClose()
+        alert('Game successfully added.');
+        handleClose();
       }
     } catch (error) {
       console.error(error);

@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Box from "@mui/material/Box";
+import React, { useState } from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Box from '@mui/material/Box';
 
 export const getHeaders = () => ({
-  "Content-Type": "application/json",
-  Accept: "*/*",
+  'Content-Type': 'application/json',
+  Accept: '*/*',
 });
 
 export const getHeadersWithAuth = () => ({
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${localStorage.getItem("JWT")}`,
+  'Content-Type': 'application/json',
+  Authorization: `Bearer ${localStorage.getItem('JWT')}`,
 });
 
 export const handleErrors = (res) => {
@@ -24,10 +24,10 @@ export const handleErrors = (res) => {
   return res.json();
 };
 
-export default function Login() {
+export default function LoginForm() {
   const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,19 +38,19 @@ export default function Login() {
   };
 
   const loginAsUser = async () => {
-    const JWT = await fetch("http://localhost:8000/auth", {
-      method: "POST",
+    const JWT = await fetch('http://localhost:8000/auth', {
+      method: 'POST',
       headers: getHeaders(),
       body: JSON.stringify({ user: username, pwd: password }),
     }).then(handleErrors);
-  
-    localStorage.setItem("JWT", JWT.accessToken);
-  
-    setUsername('')
-    setPassword('')
 
-    handleClose()
-  
+    localStorage.setItem('JWT', JWT.accessToken);
+
+    setUsername('');
+    setPassword('');
+
+    handleClose();
+
     return JWT;
   };
 
