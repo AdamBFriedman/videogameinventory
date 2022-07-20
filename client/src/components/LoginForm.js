@@ -6,6 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
 export const getHeaders = () => ({
   'Content-Type': 'application/json',
@@ -19,23 +20,15 @@ export const getHeadersWithAuth = () => ({
 
 export const handleErrors = (res) => {
   if (!res.ok) {
-    throw Error(res.statusText);
+    alert(`Error: ${res.statusText}`);
   }
   return res.json();
 };
 
 export default function LoginForm() {
-  const [open, setOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const navigate = useNavigate();
 
   const loginAsUser = async () => {
     const JWT = await fetch('http://localhost:8000/auth', {
@@ -49,7 +42,7 @@ export default function LoginForm() {
     setUsername('');
     setPassword('');
 
-    handleClose();
+    navigate('/games');
 
     return JWT;
   };
@@ -62,12 +55,13 @@ export default function LoginForm() {
     }
   };
 
+  const handleRegister = async () => {
+    alert('Register coming soon');
+  };
+
   return (
     <Box>
-      <Button variant="contained" onClick={handleClickOpen}>
-        Login
-      </Button>
-      <Dialog fullWidth open={open} onClose={handleClose}>
+      <Dialog fullWidth open={true}>
         <DialogTitle>Login</DialogTitle>
         <DialogContent>
           <TextField
@@ -94,7 +88,7 @@ export default function LoginForm() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleRegister}>Register</Button>
           <Button onClick={handleLogin}>Login</Button>
         </DialogActions>
       </Dialog>
