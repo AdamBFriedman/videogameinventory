@@ -4,7 +4,6 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import { getHeadersWithAuth } from "./Login";
@@ -35,7 +34,7 @@ export default function AddGameForm({ games }) {
   };
 
   const handleAddGame = async () => {
-    const duplicate = games.find((game) => game.name === title);
+    const duplicate = games.find((game) => game.title === title);
     if (duplicate) {
       alert("Error: There is already a game with this title in your database.");
       return;
@@ -59,8 +58,8 @@ export default function AddGameForm({ games }) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="Name"
+            id="title"
+            label="Title"
             type="text"
             fullWidth
             variant="standard"
