@@ -68,7 +68,7 @@ export default function LoginForm() {
         Login
       </Button>
       <Dialog fullWidth open={open} onClose={handleClose}>
-        <DialogTitle>Add New Game</DialogTitle>
+        <DialogTitle>Login</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
