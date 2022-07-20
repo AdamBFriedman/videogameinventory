@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
-import TableFooterPagination from "./tableFooterPagination";
+import React, { useState } from 'react';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import TableFooterPagination from './tableFooterPagination';
 
 const renderTableRow = ({ _id, title, platform }) => {
   return (
     <TableRow
       key={_id}
-      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
     >
       <TableCell>
         <Typography>{title}</Typography>
@@ -29,7 +29,9 @@ export const GamesTable = ({ games }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const tableRows = [...games.map((game) => renderTableRow({ ...game }))];
+  const tableRows = [
+    ...games.map((game) => renderTableRow({ ...game })),
+  ];
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -41,7 +43,11 @@ export const GamesTable = ({ games }) => {
   };
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 300 }} size="small" aria-label="Change History">
+      <Table
+        sx={{ minWidth: 300 }}
+        size="small"
+        aria-label="Change History"
+      >
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
