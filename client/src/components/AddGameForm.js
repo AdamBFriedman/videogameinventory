@@ -41,7 +41,10 @@ export default function AddGameForm({ games }) {
     }
     try {
       const createGame = await addGame(title, platform);
-      if (createGame) alert("Game successfully added.");
+      if (createGame) {
+        alert("Game successfully added.");
+        handleClose()
+      }
     } catch (error) {
       console.error(error);
     }

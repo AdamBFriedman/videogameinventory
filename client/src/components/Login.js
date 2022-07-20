@@ -24,18 +24,6 @@ export const handleErrors = (res) => {
   return res.json();
 };
 
-export const loginAsUser = async (username, password) => {
-  const JWT = await fetch("http://localhost:8000/auth", {
-    method: "POST",
-    headers: getHeaders(),
-    body: JSON.stringify({ user: "Kustanza", pwd: "Password123" }),
-  }).then(handleErrors);
-
-  localStorage.setItem("JWT", JWT.accessToken);
-
-  return JWT;
-};
-
 export default function Login() {
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState("");
@@ -49,7 +37,24 @@ export default function Login() {
     setOpen(false);
   };
 
-  const handleLogin = async (username, password) => {
+  const loginAsUser = async () => {
+    const JWT = await fetch("http://localhost:8000/auth", {
+      method: "POST",
+      headers: getHeaders(),
+      body: JSON.stringify({ user: username, pwd: password }),
+    }).then(handleErrors);
+  
+    localStorage.setItem("JWT", JWT.accessToken);
+  
+    setUsername('')
+    setPassword('')
+
+    handleClose()
+  
+    return JWT;
+  };
+
+  const handleLogin = async () => {
     try {
       loginAsUser().then((result) => console.log(result));
     } catch (error) {
