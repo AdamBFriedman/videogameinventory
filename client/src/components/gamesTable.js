@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -39,10 +44,26 @@ const renderTableRow = ({ _id, title, platform }) => {
 export const GamesTable = ({ games }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [filter, setFilter] = useState('');
+  const [videoGames, setVideoGames] = useState([]);
+
+  useEffect(() => {
+    if (filter === '' || filter === 'All Platforms') {
+      setVideoGames(games);
+    } else {
+      setVideoGames([
+        ...games.filter((game) => game.platform === filter),
+      ]);
+    }
+  }, [games, filter]);
 
   const tableRows = [
-    ...games.map((game) => renderTableRow({ ...game })),
+    ...videoGames.map((game) => renderTableRow({ ...game })),
   ];
+
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -53,41 +74,58 @@ export const GamesTable = ({ games }) => {
     setPage(0);
   };
   return (
-    <TableContainer component={Paper}>
-      <Table
-        sx={{ minWidth: 300 }}
-        size="small"
-        aria-label="Video Game Inventory"
-      >
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Platform</TableCell>
-            <TableCell />
-            <TableCell />
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {games.length > 0
-            ? rowsPerPage > 0
-              ? tableRows.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-              : tableRows
-            : null}
-        </TableBody>
-        {games.length > 10 ? (
-          <TableFooterPagination
-            count={games.length}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            colSpan={6}
-          />
-        ) : null}
-      </Table>
-    </TableContainer>
+    <Box>
+      <FormControl style={{ width: '200px' }}>
+        <InputLabel id="platform">Platform</InputLabel>
+        <Select
+          labelId="filter"
+          id="filter"
+          value={filter}
+          label="Filter by Platform"
+          onChange={handleFilterChange}
+        >
+          <MenuItem value={'All Platforms'}>All Platforms</MenuItem>
+          <MenuItem value={'Nintendo 64'}>Nintendo 64</MenuItem>
+          <MenuItem value={'Super Nintendo'}>Super Nintendo</MenuItem>
+          <MenuItem value={'Nintendo'}>Nintendo</MenuItem>
+        </Select>
+      </FormControl>
+      <TableContainer component={Paper}>
+        <Table
+          sx={{ minWidth: 300 }}
+          size="small"
+          aria-label="Video Game Inventory"
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Platform</TableCell>
+              <TableCell />
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {videoGames.length > 0
+              ? rowsPerPage > 0
+                ? tableRows.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : tableRows
+              : null}
+          </TableBody>
+          {videoGames.length > 10 ? (
+            <TableFooterPagination
+              count={videoGames.length}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              colSpan={6}
+            />
+          ) : null}
+        </Table>
+      </TableContainer>
+    </Box>
   );
 };
