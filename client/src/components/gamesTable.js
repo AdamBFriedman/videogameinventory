@@ -73,23 +73,31 @@ export const GamesTable = ({ games }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const menuItems = [
+    'All Platforms',
+    'Nintendo 64',
+    'Super Nintendo',
+    'Nintendo',
+  ];
   return (
     <Box>
-      <FormControl style={{ width: '200px' }}>
-        <InputLabel id="platform">Platform</InputLabel>
-        <Select
-          labelId="filter"
-          id="filter"
-          value={filter}
-          label="Filter by Platform"
-          onChange={handleFilterChange}
-        >
-          <MenuItem value={'All Platforms'}>All Platforms</MenuItem>
-          <MenuItem value={'Nintendo 64'}>Nintendo 64</MenuItem>
-          <MenuItem value={'Super Nintendo'}>Super Nintendo</MenuItem>
-          <MenuItem value={'Nintendo'}>Nintendo</MenuItem>
-        </Select>
-      </FormControl>
+      <Box my={2}>
+        <FormControl style={{ width: '200px' }}>
+          <InputLabel id="platform">Platform</InputLabel>
+          <Select
+            labelId="filter"
+            id="filter"
+            value={filter}
+            label="Filter by Platform"
+            onChange={handleFilterChange}
+          >
+            {menuItems.map((item) => (
+              <MenuItem value={item}>{item}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
       <TableContainer component={Paper}>
         <Table
           sx={{ minWidth: 300 }}
