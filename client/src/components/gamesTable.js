@@ -80,6 +80,9 @@ export const GamesTable = ({ games }) => {
     'Super Nintendo',
     'Nintendo',
   ];
+
+  const tableHeaders = ['Title', 'Platform', '', ''];
+
   return (
     <Box>
       <Box my={2}>
@@ -106,10 +109,9 @@ export const GamesTable = ({ games }) => {
         >
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Platform</TableCell>
-              <TableCell />
-              <TableCell />
+              {tableHeaders.map((header) => (
+                <TableCell>{header}</TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
