@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import AddGameForm from './AddGameForm';
 import { fetchGames } from '../api/games';
 import { GamesTable } from './gamesTable';
+import { Logout } from '../components/Logout';
 
 export default function Games() {
   const [games, setGames] = useState([]);
@@ -20,6 +21,7 @@ export default function Games() {
   }, []);
   return (
     <Box>
+      <Logout />
       <h1>Video Games</h1>
       <AddGameForm games={games} />
       <GamesTable games={games} />
