@@ -4,11 +4,7 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
-import {
-  createTheme,
-  Theme,
-  ThemeProvider,
-} from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './App.css';
 import Home from './components/Home';
 import Games from './components/Games';
