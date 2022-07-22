@@ -1,12 +1,30 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
+import { makeStyles } from '@mui/styles';
+import Logo from '../images/logo.png';
+
+const useStyles = makeStyles((theme) => ({
+  loginWrapper: {
+    padding: theme.spacing(2),
+    margin: theme.spacing(2),
+    width: 'auto',
+    minWidth: 500,
+    maxWidth: 540,
+    minHeight: 400,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  logo: {
+    width: 150,
+  },
+}));
 
 export const getHeaders = () => ({
   'Content-Type': 'application/json',
@@ -26,6 +44,7 @@ export const handleErrors = (res) => {
 };
 
 export default function LoginForm() {
+  const classes = useStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -60,38 +79,36 @@ export default function LoginForm() {
   };
 
   return (
-    <Box>
-      <Dialog fullWidth open={true}>
-        <DialogTitle>Login</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="username"
-            label="Username"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="password"
-            label="Password"
-            type="password"
-            fullWidth
-            variant="standard"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleRegister}>Register</Button>
-          <Button onClick={handleLogin}>Login</Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
+    <Card className={classes.loginWrapper}>
+      <Box>
+        <Typography variant="h6" component="h1" textAlign="center">
+          <img className={classes.logo} alt="Mega Man" src={Logo} />
+        </Typography>
+        <TextField
+          autoFocus
+          margin="dense"
+          id="username"
+          label="Username"
+          type="text"
+          fullWidth
+          variant="standard"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          id="password"
+          label="Password"
+          type="password"
+          fullWidth
+          variant="standard"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </Box>
+      <Button onClick={handleRegister}>Register</Button>
+      <Button onClick={handleLogin}>Login</Button>
+    </Card>
   );
 }
