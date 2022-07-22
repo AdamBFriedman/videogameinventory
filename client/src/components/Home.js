@@ -4,10 +4,15 @@ import LoginForm from './LoginForm';
 import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles(() => ({
-  background: {
-    background: 'red',
+const useStyles = makeStyles((theme) => ({
+  homeWrapper: {
+    background: 'goldenrod',
     height: '100vh',
+    padding: theme.spacing(3),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
   },
 }));
 
@@ -18,8 +23,7 @@ export default function Home() {
     if (localStorage.getItem('JWT')) navigate('/games');
   }, []);
   return (
-    <Box className={classes.background}>
-      <h1>Login</h1>
+    <Box className={classes.homeWrapper}>
       <LoginForm />
     </Box>
   );
