@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import TableFooterPagination from './tableFooterPagination';
+import Button from '@mui/material/Button';
 
 const renderTableRow = ({ _id, title, platform }) => {
   return (
@@ -20,6 +21,16 @@ const renderTableRow = ({ _id, title, platform }) => {
       </TableCell>
       <TableCell>
         <Typography>{platform}</Typography>
+      </TableCell>
+      <TableCell>
+        <Button onClick={() => alert('Coming soon: Edit game')}>
+          Edit Game
+        </Button>
+      </TableCell>
+      <TableCell>
+        <Button onClick={() => alert('Coming soon: Delete game')}>
+          Delete Game
+        </Button>
       </TableCell>
     </TableRow>
   );
@@ -52,6 +63,8 @@ export const GamesTable = ({ games }) => {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Platform</TableCell>
+            <TableCell />
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
