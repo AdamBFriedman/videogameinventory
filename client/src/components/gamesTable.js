@@ -57,7 +57,7 @@ export const GamesTable = ({ games }) => {
       <Table
         sx={{ minWidth: 300 }}
         size="small"
-        aria-label="Change History"
+        aria-label="Video Game Inventory"
       >
         <TableHead>
           <TableRow>

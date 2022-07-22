@@ -23,8 +23,11 @@ export default function Games() {
     <Box>
       <Logout />
       <h1>Video Games</h1>
-      <AddGameForm games={games} />
-      <GamesTable games={games} />
+
+      <Box width={'80vw'} justifyContent={'center'} margin={'auto'}>
+        <AddGameForm games={games} />
+        <GamesTable games={games} />
+      </Box>
     </Box>
   );
 }
