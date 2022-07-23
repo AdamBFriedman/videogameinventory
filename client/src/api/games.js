@@ -3,7 +3,7 @@ import { handleErrors } from '../components/LoginForm';
 
 const url = 'http://localhost:8000/games';
 
-const options = (type, title = '', platform = '') => {
+const options = (type, title = '', platform = '', id = '') => {
   switch (type) {
     case 'POST':
       return {
@@ -23,6 +23,7 @@ const options = (type, title = '', platform = '') => {
         body: JSON.stringify({
           title,
           platform,
+          id,
         }),
       };
       break;
@@ -51,8 +52,8 @@ export const addGame = async (title, platform) => {
   );
 };
 
-export const updateGame = async (title, platform) => {
-  return await fetch(url, options('PUT', title, platform)).then(
+export const updateGame = async (title, platform, id) => {
+  return await fetch(url, options('PUT', title, platform, id)).then(
     handleErrors
   );
 };

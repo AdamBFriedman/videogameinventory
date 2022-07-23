@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
-import { addGame } from '../api/games';
+import { addGame, updateGame } from '../api/games';
 
 export default function AddGameForm({
   isEdit,
@@ -16,6 +16,7 @@ export default function AddGameForm({
   setIsEdit,
   originalTitle,
   originalPlatform,
+  id,
 }) {
   const [title, setTitle] = useState('');
   const [platform, setPlatform] = useState('');
@@ -55,12 +56,26 @@ export default function AddGameForm({
     }
   };
 
+  const handleEditGame = async () => {
+    try {
+      const editGame = await updateGame(title, platform, id);
+      if (editGame) {
+        alert('Game successfully edited.');
+        handleClose();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Box>
+      {`${typeof id}`}
+      {`ID: ${id}`} <br />
+      {`Title: ${title}`} <br />
+      {`Platform: ${platform}`} <br />
       <Dialog fullWidth open={open} onClose={handleClose}>
-        <DialogTitle>
-          {isEdit ? 'Edit Game' : 'Add New Game'}
-        </DialogTitle>
+        <DialogTitle>{isEdit ? 'Edit Game' : 'Add Game'}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -87,7 +102,9 @@ export default function AddGameForm({
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() => handleAddGame()}>Add Game</Button>
+          <Button onClick={isEdit ? handleEditGame : handleAddGame}>
+            {isEdit ? 'Edit Game' : 'Add Game'}
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

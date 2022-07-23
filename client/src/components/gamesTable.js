@@ -14,7 +14,6 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import TableFooterPagination from './tableFooterPagination';
 import Button from '@mui/material/Button';
-import { updateGame } from '../api/games';
 
 const renderTableRow = ({
   _id,
@@ -24,26 +23,14 @@ const renderTableRow = ({
   setIsEdit,
   setTitle,
   setPlatform,
+  setId,
 }) => {
-  // const handleEdit = async (title, platform) => {
-  //   try {
-  //     const successfullyUpdatedGame = await updateGame(
-  //       title,
-  //       platform
-  //     );
-  //     if (successfullyUpdatedGame) {
-  //       alert('Game successfully updated.');
-  //       setOpen(false);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   const handleEdit = () => {
     setOpen(true);
     setIsEdit(true);
     setTitle(title);
     setPlatform(platform);
+    setId(_id);
   };
   return (
     <TableRow
@@ -74,6 +61,7 @@ export const GamesTable = ({
   setIsEdit,
   setTitle,
   setPlatform,
+  setId,
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -98,6 +86,7 @@ export const GamesTable = ({
         setIsEdit,
         setTitle,
         setPlatform,
+        setId,
       })
     ),
   ];

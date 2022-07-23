@@ -12,6 +12,7 @@ export default function Games() {
   const [isEdit, setIsEdit] = useState(false);
   const [title, setTitle] = useState('');
   const [platform, setPlatform] = useState('');
+  const [id, setId] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,6 +47,7 @@ export default function Games() {
           setIsEdit={setIsEdit}
           originalTitle={title}
           originalPlatform={platform}
+          id={id}
         />
         <GamesTable
           games={games}
@@ -53,6 +55,7 @@ export default function Games() {
           setIsEdit={setIsEdit}
           setTitle={setTitle}
           setPlatform={setPlatform}
+          setId={setId}
         />
       </Box>
     </Box>
