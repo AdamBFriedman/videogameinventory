@@ -41,15 +41,13 @@ export default function AddGameForm({
   const handleAddGame = async () => {
     const duplicate = games.find((game) => game.title === title);
     if (duplicate) {
-      alert(
-        'Error: There is already a game with this title in your database.'
-      );
+      alert(`Error: ${title} is already in your database.`);
       return;
     }
     try {
       const createGame = await addGame(title, platform);
       if (createGame) {
-        alert('Game successfully added.');
+        alert(`${title} successfully added.`);
         handleClose();
         setTriggerRefresh(true);
       }
@@ -62,7 +60,7 @@ export default function AddGameForm({
     try {
       const editGame = await updateGame(title, platform, id);
       if (editGame) {
-        alert('Game successfully edited.');
+        alert(`${title} successfully edited.`);
         handleClose();
         setTriggerRefresh(true);
       }
