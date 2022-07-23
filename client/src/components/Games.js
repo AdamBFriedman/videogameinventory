@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import AddGameForm from './AddGameForm';
 import { fetchGames } from '../api/games';
 import { GamesTable } from './gamesTable';
@@ -40,7 +41,9 @@ export default function Games() {
 
       <Box width={'80vw'} justifyContent={'center'} margin={'auto'}>
         <Button variant="contained" onClick={handleClickOpen}>
-          Add Game
+          <Typography variant="h6" component="h6">
+            Add Game
+          </Typography>
         </Button>
         <AddGameForm
           isEdit={isEdit}
