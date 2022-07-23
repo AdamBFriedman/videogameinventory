@@ -39,9 +39,13 @@ export default function AddGameForm({
   };
 
   const handleAddGame = async () => {
-    const duplicate = games.find((game) => game.title === title);
+    const duplicate =
+      games.find((game) => game.title === title) &&
+      games.find((game) => game.platform === platform);
     if (duplicate) {
-      alert(`Error: ${title} is already in your database.`);
+      alert(
+        `Error: ${title} on the ${platform} is already in your database.`
+      );
       return;
     }
     try {
