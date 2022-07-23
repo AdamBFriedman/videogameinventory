@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -8,16 +8,31 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import { addGame } from '../api/games';
 
-export default function AddGameForm({ games }) {
-  const [open, setOpen] = useState(false);
+export default function AddGameForm({
+  isEdit,
+  games,
+  open,
+  setOpen,
+  setIsEdit,
+  originalTitle,
+  originalPlatform,
+}) {
   const [title, setTitle] = useState('');
   const [platform, setPlatform] = useState('');
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // Set form if in edit mode
+  useEffect(() => {
+    if (isEdit) {
+      setTitle(originalTitle);
+      setPlatform(originalPlatform);
+    } else {
+      setTitle('');
+      setPlatform('');
+    }
+  }, [isEdit]);
 
   const handleClose = () => {
+    setIsEdit(false);
     setOpen(false);
   };
 
@@ -42,11 +57,10 @@ export default function AddGameForm({ games }) {
 
   return (
     <Box>
-      <Button variant="contained" onClick={handleClickOpen}>
-        Add Game
-      </Button>
       <Dialog fullWidth open={open} onClose={handleClose}>
-        <DialogTitle>Add New Game</DialogTitle>
+        <DialogTitle>
+          {isEdit ? 'Edit Game' : 'Add New Game'}
+        </DialogTitle>
         <DialogContent>
           <TextField
             autoFocus

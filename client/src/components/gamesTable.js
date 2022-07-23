@@ -14,8 +14,37 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import TableFooterPagination from './tableFooterPagination';
 import Button from '@mui/material/Button';
+import { updateGame } from '../api/games';
 
-const renderTableRow = ({ _id, title, platform }) => {
+const renderTableRow = ({
+  _id,
+  title,
+  platform,
+  setOpen,
+  setIsEdit,
+  setTitle,
+  setPlatform,
+}) => {
+  // const handleEdit = async (title, platform) => {
+  //   try {
+  //     const successfullyUpdatedGame = await updateGame(
+  //       title,
+  //       platform
+  //     );
+  //     if (successfullyUpdatedGame) {
+  //       alert('Game successfully updated.');
+  //       setOpen(false);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  const handleEdit = () => {
+    setOpen(true);
+    setIsEdit(true);
+    setTitle(title);
+    setPlatform(platform);
+  };
   return (
     <TableRow
       key={_id}
@@ -28,9 +57,7 @@ const renderTableRow = ({ _id, title, platform }) => {
         <Typography>{platform}</Typography>
       </TableCell>
       <TableCell>
-        <Button onClick={() => alert('Coming soon: Edit game')}>
-          Edit Game
-        </Button>
+        <Button onClick={handleEdit}>Edit Game</Button>
       </TableCell>
       <TableCell>
         <Button onClick={() => alert('Coming soon: Delete game')}>
@@ -41,7 +68,13 @@ const renderTableRow = ({ _id, title, platform }) => {
   );
 };
 
-export const GamesTable = ({ games }) => {
+export const GamesTable = ({
+  games,
+  setOpen,
+  setIsEdit,
+  setTitle,
+  setPlatform,
+}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [filter, setFilter] = useState('');
@@ -58,7 +91,15 @@ export const GamesTable = ({ games }) => {
   }, [games, filter]);
 
   const tableRows = [
-    ...videoGames.map((game) => renderTableRow({ ...game })),
+    ...videoGames.map((game) =>
+      renderTableRow({
+        ...game,
+        setOpen,
+        setIsEdit,
+        setTitle,
+        setPlatform,
+      })
+    ),
   ];
 
   const handleFilterChange = (event) => {
@@ -95,8 +136,10 @@ export const GamesTable = ({ games }) => {
             label="Filter by Platform"
             onChange={handleFilterChange}
           >
-            {menuItems.map((item) => (
-              <MenuItem value={item}>{item}</MenuItem>
+            {menuItems.map((item, index) => (
+              <MenuItem key={index} value={item}>
+                {item}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -109,8 +152,8 @@ export const GamesTable = ({ games }) => {
         >
           <TableHead>
             <TableRow>
-              {tableHeaders.map((header) => (
-                <TableCell>{header}</TableCell>
+              {tableHeaders.map((header, index) => (
+                <TableCell key={index}>{header}</TableCell>
               ))}
             </TableRow>
           </TableHead>
