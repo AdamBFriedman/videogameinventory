@@ -46,7 +46,9 @@ export default function AddGameForm({
       games.find((game) => game.title === title) &&
       games.find((game) => game.platform === platform);
     if (duplicate) {
-      alert(
+      setShouldAlert(true);
+      setAlertSeverity('error');
+      setAlertMessage(
         `Error: ${title} on the ${platform} is already in your database.`
       );
       return;
