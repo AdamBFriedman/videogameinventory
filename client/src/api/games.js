@@ -28,6 +28,16 @@ const options = (type, title = '', platform = '', id = '') => {
       };
       break;
 
+    case 'DELETE':
+      return {
+        method: 'DELETE',
+        headers: getHeadersWithAuth(),
+        body: JSON.stringify({
+          id,
+        }),
+      };
+      break;
+
     default:
       return {
         method: 'GET',
@@ -54,6 +64,12 @@ export const addGame = async (title, platform) => {
 
 export const updateGame = async (title, platform, id) => {
   return await fetch(url, options('PUT', title, platform, id)).then(
+    handleErrors
+  );
+};
+
+export const deleteGame = async (id) => {
+  return await fetch(url, options('DELETE', '', '', id)).then(
     handleErrors
   );
 };
