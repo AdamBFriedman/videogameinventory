@@ -6,19 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
-import { getHeadersWithAuth } from './LoginForm';
-import { handleErrors } from './LoginForm';
-
-export const addGame = async (title, platform) => {
-  return await fetch('http://localhost:8000/games', {
-    method: 'POST',
-    headers: getHeadersWithAuth(),
-    body: JSON.stringify({
-      title,
-      platform,
-    }),
-  }).then(handleErrors);
-};
+import { addGame } from '../api/games';
 
 export default function AddGameForm({ games }) {
   const [open, setOpen] = useState(false);
