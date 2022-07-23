@@ -70,10 +70,6 @@ export default function AddGameForm({
 
   return (
     <Box>
-      {`${typeof id}`}
-      {`ID: ${id}`} <br />
-      {`Title: ${title}`} <br />
-      {`Platform: ${platform}`} <br />
       <Dialog fullWidth open={open} onClose={handleClose}>
         <DialogTitle>{isEdit ? 'Edit Game' : 'Add Game'}</DialogTitle>
         <DialogContent>

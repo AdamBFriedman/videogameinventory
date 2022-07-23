@@ -14,6 +14,7 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import TableFooterPagination from './tableFooterPagination';
 import Button from '@mui/material/Button';
+import { deleteGame } from '../api/games';
 
 const renderTableRow = ({
   _id,
@@ -25,13 +26,25 @@ const renderTableRow = ({
   setPlatform,
   setId,
 }) => {
-  const handleEdit = () => {
+  const handleEditGame = () => {
     setOpen(true);
     setIsEdit(true);
     setTitle(title);
     setPlatform(platform);
     setId(_id);
   };
+
+  const handleDeleteGame = async () => {
+    try {
+      const removeGame = await deleteGame(_id);
+      if (removeGame) {
+        alert('Game successfully deleted.');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <TableRow
       key={_id}
@@ -44,12 +57,10 @@ const renderTableRow = ({
         <Typography>{platform}</Typography>
       </TableCell>
       <TableCell>
-        <Button onClick={handleEdit}>Edit Game</Button>
+        <Button onClick={handleEditGame}>Edit Game</Button>
       </TableCell>
       <TableCell>
-        <Button onClick={() => alert('Coming soon: Delete game')}>
-          Delete Game
-        </Button>
+        <Button onClick={handleDeleteGame}>Delete Game</Button>
       </TableCell>
     </TableRow>
   );
