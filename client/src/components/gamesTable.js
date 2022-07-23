@@ -26,6 +26,9 @@ const renderTableRow = ({
   setPlatform,
   setId,
   setTriggerRefresh,
+  setShouldAlert,
+  setAlertSeverity,
+  setAlertMessage,
 }) => {
   const handleEditGame = () => {
     setOpen(true);
@@ -44,7 +47,9 @@ const renderTableRow = ({
       try {
         const removeGame = await deleteGame(_id);
         if (removeGame) {
-          alert(`${title} successfully deleted.`);
+          setShouldAlert(true);
+          setAlertSeverity('success');
+          setAlertMessage(`${title} successfully deleted.`);
           setTriggerRefresh(true);
         }
       } catch (error) {
@@ -94,6 +99,9 @@ export const GamesTable = ({
   setPlatform,
   setId,
   setTriggerRefresh,
+  setShouldAlert,
+  setAlertSeverity,
+  setAlertMessage,
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -128,6 +136,9 @@ export const GamesTable = ({
           setPlatform,
           setId,
           setTriggerRefresh,
+          setShouldAlert,
+          setAlertSeverity,
+          setAlertMessage,
         })
       ),
   ];

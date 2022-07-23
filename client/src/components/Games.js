@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import AddGameForm from './AddGameForm';
 import { fetchGames } from '../api/games';
@@ -14,6 +16,11 @@ export default function Games() {
   const [title, setTitle] = useState('');
   const [platform, setPlatform] = useState('');
   const [id, setId] = useState('');
+  const [shouldAlert, setShouldAlert] = useState(false);
+  const [alertSeverity, setAlertSeverity] = useState('error');
+  const [alertMessage, setAlertMessage] = useState(
+    'Error: Something went wrong.'
+  );
 
   const [triggerRefetch, setTriggerRefresh] = useState(false);
 
@@ -34,11 +41,14 @@ export default function Games() {
     setTriggerRefresh(false);
   }, [triggerRefetch]);
 
+  const handleClose = () => {
+    setShouldAlert(false);
+  };
+
   return (
     <Box>
       <Logout />
       <h1>Video Games</h1>
-
       <Box width={'80vw'} justifyContent={'center'} margin={'auto'}>
         <Button variant="contained" onClick={handleClickOpen}>
           <Typography variant="h6" component="h6">
@@ -55,6 +65,9 @@ export default function Games() {
           originalPlatform={platform}
           id={id}
           setTriggerRefresh={setTriggerRefresh}
+          setShouldAlert={setShouldAlert}
+          setAlertSeverity={setAlertSeverity}
+          setAlertMessage={setAlertMessage}
         />
         <GamesTable
           games={games}
@@ -64,8 +77,22 @@ export default function Games() {
           setPlatform={setPlatform}
           setId={setId}
           setTriggerRefresh={setTriggerRefresh}
+          setShouldAlert={setShouldAlert}
+          setAlertSeverity={setAlertSeverity}
+          setAlertMessage={setAlertMessage}
         />
       </Box>
+      {shouldAlert ? (
+        <Snackbar
+          open={shouldAlert}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity={alertSeverity}>
+            {alertMessage}
+          </Alert>
+        </Snackbar>
+      ) : null}
     </Box>
   );
 }

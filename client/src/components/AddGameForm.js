@@ -18,6 +18,9 @@ export default function AddGameForm({
   originalPlatform,
   id,
   setTriggerRefresh,
+  setShouldAlert,
+  setAlertSeverity,
+  setAlertMessage,
 }) {
   const [title, setTitle] = useState('');
   const [platform, setPlatform] = useState('');
@@ -51,7 +54,9 @@ export default function AddGameForm({
     try {
       const createGame = await addGame(title, platform);
       if (createGame) {
-        alert(`${title} successfully added.`);
+        setShouldAlert(true);
+        setAlertSeverity('success');
+        setAlertMessage(`${title} successfully added.`);
         handleClose();
         setTriggerRefresh(true);
       }
@@ -64,7 +69,9 @@ export default function AddGameForm({
     try {
       const editGame = await updateGame(title, platform, id);
       if (editGame) {
-        alert(`${title} successfully edited.`);
+        setShouldAlert(true);
+        setAlertSeverity('success');
+        setAlertMessage(`${title} successfully edited.`);
         handleClose();
         setTriggerRefresh(true);
       }
