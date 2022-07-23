@@ -17,6 +17,7 @@ export default function AddGameForm({
   originalTitle,
   originalPlatform,
   id,
+  setTriggerRefresh,
 }) {
   const [title, setTitle] = useState('');
   const [platform, setPlatform] = useState('');
@@ -50,6 +51,7 @@ export default function AddGameForm({
       if (createGame) {
         alert('Game successfully added.');
         handleClose();
+        setTriggerRefresh(true);
       }
     } catch (error) {
       console.error(error);
@@ -62,6 +64,7 @@ export default function AddGameForm({
       if (editGame) {
         alert('Game successfully edited.');
         handleClose();
+        setTriggerRefresh(true);
       }
     } catch (error) {
       console.error(error);

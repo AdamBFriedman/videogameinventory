@@ -14,6 +14,8 @@ export default function Games() {
   const [platform, setPlatform] = useState('');
   const [id, setId] = useState('');
 
+  const [triggerRefetch, setTriggerRefresh] = useState(false);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -28,7 +30,8 @@ export default function Games() {
       }
     };
     getGames();
-  }, []);
+    setTriggerRefresh(false);
+  }, [triggerRefetch]);
 
   return (
     <Box>
@@ -48,6 +51,7 @@ export default function Games() {
           originalTitle={title}
           originalPlatform={platform}
           id={id}
+          setTriggerRefresh={setTriggerRefresh}
         />
         <GamesTable
           games={games}
@@ -56,6 +60,7 @@ export default function Games() {
           setTitle={setTitle}
           setPlatform={setPlatform}
           setId={setId}
+          setTriggerRefresh={setTriggerRefresh}
         />
       </Box>
     </Box>

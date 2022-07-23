@@ -25,6 +25,7 @@ const renderTableRow = ({
   setTitle,
   setPlatform,
   setId,
+  setTriggerRefresh,
 }) => {
   const handleEditGame = () => {
     setOpen(true);
@@ -39,6 +40,7 @@ const renderTableRow = ({
       const removeGame = await deleteGame(_id);
       if (removeGame) {
         alert('Game successfully deleted.');
+        setTriggerRefresh(true);
       }
     } catch (error) {
       console.error(error);
@@ -73,6 +75,7 @@ export const GamesTable = ({
   setTitle,
   setPlatform,
   setId,
+  setTriggerRefresh,
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -98,6 +101,7 @@ export const GamesTable = ({
         setTitle,
         setPlatform,
         setId,
+        setTriggerRefresh,
       })
     ),
   ];
