@@ -36,15 +36,20 @@ const renderTableRow = ({
   };
 
   const handleDeleteGame = async () => {
-    try {
-      const removeGame = await deleteGame(_id);
-      if (removeGame) {
-        alert('Game successfully deleted.');
-        setTriggerRefresh(true);
+    if (
+      window.confirm(
+        `Are you sure you want to delete ${title} from your database?`
+      )
+    )
+      try {
+        const removeGame = await deleteGame(_id);
+        if (removeGame) {
+          alert(`${title} successfully deleted.`);
+          setTriggerRefresh(true);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (
