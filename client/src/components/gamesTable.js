@@ -91,7 +91,7 @@ export const GamesTable = ({
   setTriggerRefresh,
 }) => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [filter, setFilter] = useState('');
   const [videoGames, setVideoGames] = useState([]);
 
