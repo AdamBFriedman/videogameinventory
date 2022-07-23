@@ -53,16 +53,29 @@ const renderTableRow = ({
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
     >
       <TableCell>
-        <Typography>{title}</Typography>
+        <Typography variant="h5" component="h5">
+          {title}
+        </Typography>
       </TableCell>
       <TableCell>
-        <Typography>{platform}</Typography>
+        <Typography variant="h5" component="h5">
+          {platform}
+        </Typography>
       </TableCell>
       <TableCell>
-        <Button onClick={handleEditGame}>Edit Game</Button>
+        <Button onClick={handleEditGame}>
+          {' '}
+          <Typography variant="h6" component="h6">
+            Edit Game
+          </Typography>
+        </Button>
       </TableCell>
       <TableCell>
-        <Button onClick={handleDeleteGame}>Delete Game</Button>
+        <Button onClick={handleDeleteGame}>
+          <Typography variant="h6" component="h6">
+            Delete Game
+          </Typography>
+        </Button>
       </TableCell>
     </TableRow>
   );
@@ -129,9 +142,10 @@ export const GamesTable = ({
 
   const menuItems = [
     'All Platforms',
-    'Nintendo 64',
-    'Super Nintendo',
     'Nintendo',
+    'Nintendo 64',
+    'Sega Genesis',
+    'Super Nintendo',
   ];
 
   const tableHeaders = ['Title', 'Platform', '', ''];
@@ -165,7 +179,15 @@ export const GamesTable = ({
           <TableHead>
             <TableRow>
               {tableHeaders.map((header, index) => (
-                <TableCell key={index}>{header}</TableCell>
+                <TableCell key={index}>
+                  <Typography
+                    style={{ fontWeight: 900 }}
+                    variant="h4"
+                    component="h4"
+                  >
+                    {header}
+                  </Typography>
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>
