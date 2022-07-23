@@ -93,17 +93,25 @@ export const GamesTable = ({
   }, [games, filter]);
 
   const tableRows = [
-    ...videoGames.map((game) =>
-      renderTableRow({
-        ...game,
-        setOpen,
-        setIsEdit,
-        setTitle,
-        setPlatform,
-        setId,
-        setTriggerRefresh,
+    ...videoGames
+      .sort((game1, game2) => {
+        return game1.title === game2.title
+          ? 0
+          : game1.title > game2.title
+          ? 1
+          : -1;
       })
-    ),
+      .map((game) =>
+        renderTableRow({
+          ...game,
+          setOpen,
+          setIsEdit,
+          setTitle,
+          setPlatform,
+          setId,
+          setTriggerRefresh,
+        })
+      ),
   ];
 
   const handleFilterChange = (event) => {
