@@ -227,6 +227,10 @@ export const GamesTable = ({
   const tableHeaders = ['Title', 'Platform', 'CIB', '', ''];
 
   const handleFilterGames = async (searchQuery: string) => {
+    if (searchQuery === '') {
+      setVideoGames(videoGamesBeforeFilter);
+      return;
+    }
     try {
       setIsLoading(true);
       setVideoGames(

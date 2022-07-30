@@ -59,6 +59,7 @@ const SearchBar = ({
 
   const clearAndHandleSearch = () => {
     setSearchText('');
+    handleSearch('');
   };
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
