@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   homeWrapper: {
     background: 'goldenrod',
     height: '100vh',
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

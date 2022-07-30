@@ -3,7 +3,12 @@ import { handleErrors } from '../components/LoginForm';
 
 const url = 'http://localhost:8000/games';
 
-const options = (type, title = '', platform = '', id = '') => {
+const options = (
+  type: string,
+  title = '',
+  platform = '',
+  id = ''
+) => {
   switch (type) {
     case 'POST':
       return {
@@ -56,19 +61,23 @@ export const fetchGames = async () => {
   );
 };
 
-export const addGame = async (title, platform) => {
+export const addGame = async (title: string, platform: string) => {
   return await fetch(url, options('POST', title, platform)).then(
     handleErrors
   );
 };
 
-export const updateGame = async (title, platform, id) => {
+export const updateGame = async (
+  title: string,
+  platform: string,
+  id: string
+) => {
   return await fetch(url, options('PUT', title, platform, id)).then(
     handleErrors
   );
 };
 
-export const deleteGame = async (id) => {
+export const deleteGame = async (id: string) => {
   return await fetch(url, options('DELETE', '', '', id)).then(
     handleErrors
   );

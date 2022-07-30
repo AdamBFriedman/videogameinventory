@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Alert from '@mui/material/Alert';
+import Alert, { AlertColor } from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import AddGameForm from './AddGameForm';
 import { fetchGames } from '../api/games';
-import { GamesTable } from './gamesTable';
-import { Logout } from '../components/Logout';
+import { GamesTable } from './GamesTable';
+import { Logout } from './Logout';
 
 export default function Games() {
   const [games, setGames] = useState([]);
@@ -17,7 +17,9 @@ export default function Games() {
   const [platform, setPlatform] = useState('');
   const [id, setId] = useState('');
   const [shouldAlert, setShouldAlert] = useState(false);
-  const [alertSeverity, setAlertSeverity] = useState('error');
+  const [alertSeverity, setAlertSeverity] = useState<AlertColor>(
+    'error'
+  );
   const [alertMessage, setAlertMessage] = useState(
     'Error: Something went wrong.'
   );

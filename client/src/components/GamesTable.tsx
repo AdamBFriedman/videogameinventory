@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+  ChangeEvent,
+} from 'react';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -15,6 +21,23 @@ import Typography from '@mui/material/Typography';
 import TableFooterPagination from './tableFooterPagination';
 import Button from '@mui/material/Button';
 import { deleteGame } from '../api/games';
+import { Game } from './AddGameForm';
+import { AlertColor } from '@mui/material';
+
+interface TableRow {
+  _id: string;
+  title: string;
+  platform: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  setIsEdit: Dispatch<SetStateAction<boolean>>;
+  setTitle: Dispatch<SetStateAction<string>>;
+  setPlatform: Dispatch<SetStateAction<string>>;
+  setId: Dispatch<SetStateAction<string>>;
+  setTriggerRefresh: Dispatch<SetStateAction<boolean>>;
+  setShouldAlert: Dispatch<SetStateAction<boolean>>;
+  setAlertSeverity: Dispatch<SetStateAction<AlertColor>>;
+  setAlertMessage: Dispatch<SetStateAction<string>>;
+}
 
 const renderTableRow = ({
   _id,
@@ -29,7 +52,7 @@ const renderTableRow = ({
   setShouldAlert,
   setAlertSeverity,
   setAlertMessage,
-}) => {
+}: TableRow) => {
   const handleEditGame = () => {
     setOpen(true);
     setIsEdit(true);
@@ -91,6 +114,19 @@ const renderTableRow = ({
   );
 };
 
+interface GamesTable {
+  games: Game[];
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  setIsEdit: Dispatch<SetStateAction<boolean>>;
+  setTitle: Dispatch<SetStateAction<string>>;
+  setPlatform: Dispatch<SetStateAction<string>>;
+  setId: Dispatch<SetStateAction<string>>;
+  setTriggerRefresh: Dispatch<SetStateAction<boolean>>;
+  setShouldAlert: Dispatch<SetStateAction<boolean>>;
+  setAlertSeverity: Dispatch<SetStateAction<AlertColor>>;
+  setAlertMessage: Dispatch<SetStateAction<string>>;
+}
+
 export const GamesTable = ({
   games,
   setOpen,
@@ -102,11 +138,11 @@ export const GamesTable = ({
   setShouldAlert,
   setAlertSeverity,
   setAlertMessage,
-}) => {
+}: GamesTable) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [filter, setFilter] = useState('');
-  const [videoGames, setVideoGames] = useState([]);
+  const [videoGames, setVideoGames] = useState<Game[]>();
 
   useEffect(() => {
     if (filter === '' || filter === 'All Platforms') {
@@ -118,18 +154,21 @@ export const GamesTable = ({
     }
   }, [games, filter]);
 
-  const tableRows = [
-    ...videoGames
-      .sort((game1, game2) => {
-        return game1.title === game2.title
+  const tableRows =
+    videoGames &&
+    videoGames
+      .sort((game1: Game, game2: Game) =>
+        game1.title === game2.title
           ? 0
           : game1.title > game2.title
           ? 1
-          : -1;
-      })
-      .map((game) =>
+          : -1
+      )
+      .map((game: Game) =>
         renderTableRow({
-          ...game,
+          _id: game._id,
+          title: game.title,
+          platform: game.platform,
           setOpen,
           setIsEdit,
           setTitle,
@@ -140,18 +179,24 @@ export const GamesTable = ({
           setAlertSeverity,
           setAlertMessage,
         })
-      ),
-  ];
+      );
 
-  const handleFilterChange = (event) => {
+  const handleFilterChange = (
+    event: ChangeEvent<{ value: string }> | SelectChangeEvent<string>
+  ) => {
     setFilter(event.target.value);
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (
+    event: ChangeEvent<{ value: string }>
+  ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -168,6 +213,8 @@ export const GamesTable = ({
 
   return (
     <Box>
+      {`Page: ${page}`} <br />
+      {`Rows Per Page ${rowsPerPage}`}
       <Box my={2}>
         <FormControl style={{ width: '200px' }}>
           <InputLabel id="platform">Platform</InputLabel>
@@ -208,16 +255,58 @@ export const GamesTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {videoGames.length > 0
+            {/* {videoGames &&
+              videoGames.map((game: Game) => (
+                <TableRow
+                  key={game._id}
+                  sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                  }}
+                >
+                  <TableCell>
+                    <Typography variant="h5" component="h5">
+                      {game.title}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="h5" component="h5">
+                      {game.platform}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Button onClick={() => alert('edit')}>
+                      {' '}
+                      <Typography variant="h6" component="h6">
+                        Edit Game
+                      </Typography>
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button onClick={() => alert('delete')}>
+                      <Typography variant="h6" component="h6">
+                        Delete Game
+                      </Typography>
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))} */}
+            {/* {videoGames && videoGames.length > 0
+              ? tableRows.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+              : tableRows} */}
+            {videoGames && videoGames.length > 0
               ? rowsPerPage > 0
-                ? tableRows.slice(
+                ? tableRows &&
+                  tableRows.slice(
                     page * rowsPerPage,
                     page * rowsPerPage + rowsPerPage
                   )
                 : tableRows
               : null}
           </TableBody>
-          {videoGames.length > 10 ? (
+          {videoGames && videoGames.length > 10 ? (
             <TableFooterPagination
               count={videoGames.length}
               onChangePage={handleChangePage}
