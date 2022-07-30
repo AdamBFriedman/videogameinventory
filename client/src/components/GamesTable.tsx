@@ -213,8 +213,6 @@ export const GamesTable = ({
 
   return (
     <Box>
-      {`Page: ${page}`} <br />
-      {`Rows Per Page ${rowsPerPage}`}
       <Box my={2}>
         <FormControl style={{ width: '200px' }}>
           <InputLabel id="platform">Platform</InputLabel>
@@ -255,47 +253,6 @@ export const GamesTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {videoGames &&
-              videoGames.map((game: Game) => (
-                <TableRow
-                  key={game._id}
-                  sx={{
-                    '&:last-child td, &:last-child th': { border: 0 },
-                  }}
-                >
-                  <TableCell>
-                    <Typography variant="h5" component="h5">
-                      {game.title}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="h5" component="h5">
-                      {game.platform}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Button onClick={() => alert('edit')}>
-                      {' '}
-                      <Typography variant="h6" component="h6">
-                        Edit Game
-                      </Typography>
-                    </Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button onClick={() => alert('delete')}>
-                      <Typography variant="h6" component="h6">
-                        Delete Game
-                      </Typography>
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))} */}
-            {/* {videoGames && videoGames.length > 0
-              ? tableRows.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-              : tableRows} */}
             {videoGames && videoGames.length > 0
               ? rowsPerPage > 0
                 ? tableRows &&
