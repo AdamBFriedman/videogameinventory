@@ -12,7 +12,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import { addGame, updateGame } from '../api/games';
-import { AlertColor } from '@mui/material';
+import {
+  AlertColor,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from '@mui/material';
 
 export interface Game {
   _id: string;
@@ -52,6 +58,7 @@ export default function AddGameForm({
 }: AddGameFormProps) {
   const [title, setTitle] = useState('');
   const [platform, setPlatform] = useState('');
+  const [cib, setCib] = React.useState(false);
 
   // Set form if in edit mode
   useEffect(() => {
@@ -82,7 +89,7 @@ export default function AddGameForm({
       return;
     }
     try {
-      const createGame = await addGame(title, platform);
+      const createGame = await addGame(title, platform, cib);
       if (createGame) {
         setShouldAlert(true);
         setAlertSeverity('success');
@@ -97,7 +104,7 @@ export default function AddGameForm({
 
   const handleEditGame = async () => {
     try {
-      const editGame = await updateGame(title, platform, id);
+      const editGame = await updateGame(title, platform, cib, id);
       if (editGame) {
         setShouldAlert(true);
         setAlertSeverity('success');
@@ -137,6 +144,28 @@ export default function AddGameForm({
             value={platform}
             onChange={(event) => setPlatform(event.target.value)}
           />
+          <FormLabel id="demo-row-radio-buttons-group-label">
+            CIB
+          </FormLabel>
+          <RadioGroup
+            aria-labelledby="demo-controlled-radio-buttons-group"
+            name="controlled-radio-buttons-group"
+            value={cib === true ? 'yes' : 'no'}
+            onChange={(event) => {
+              setCib(event.target.value === 'yes' ? true : false);
+            }}
+          >
+            <FormControlLabel
+              value="yes"
+              control={<Radio />}
+              label="Yes"
+            />
+            <FormControlLabel
+              value="no"
+              control={<Radio />}
+              label="No"
+            />
+          </RadioGroup>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

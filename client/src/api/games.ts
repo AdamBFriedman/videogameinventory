@@ -7,6 +7,7 @@ const options = (
   type: string,
   title = '',
   platform = '',
+  cib = false,
   id = ''
 ) => {
   switch (type) {
@@ -17,6 +18,7 @@ const options = (
         body: JSON.stringify({
           title,
           platform,
+          cib,
         }),
       };
       break;
@@ -61,8 +63,12 @@ export const fetchGames = async () => {
   );
 };
 
-export const addGame = async (title: string, platform: string) => {
-  return await fetch(url, options('POST', title, platform)).then(
+export const addGame = async (
+  title: string,
+  platform: string,
+  cib: boolean
+) => {
+  return await fetch(url, options('POST', title, platform, cib)).then(
     handleErrors
   );
 };
@@ -70,15 +76,17 @@ export const addGame = async (title: string, platform: string) => {
 export const updateGame = async (
   title: string,
   platform: string,
+  cib: boolean,
   id: string
 ) => {
-  return await fetch(url, options('PUT', title, platform, id)).then(
-    handleErrors
-  );
+  return await fetch(
+    url,
+    options('PUT', title, platform, cib, id)
+  ).then(handleErrors);
 };
 
 export const deleteGame = async (id: string) => {
-  return await fetch(url, options('DELETE', '', '', id)).then(
+  return await fetch(url, options('DELETE', '', '', false, id)).then(
     handleErrors
   );
 };

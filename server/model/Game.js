@@ -12,6 +12,7 @@ const gameSchema = new Schema({
   },
   cib: {
     type: Boolean,
+    required: true,
   },
 });
 
