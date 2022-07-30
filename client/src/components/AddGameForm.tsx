@@ -18,6 +18,7 @@ export interface Game {
   _id: string;
   title: string;
   platform: string;
+  cib: boolean;
 }
 
 interface AddGameFormProps {

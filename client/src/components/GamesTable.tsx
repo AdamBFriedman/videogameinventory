@@ -28,6 +28,7 @@ interface TableRow {
   _id: string;
   title: string;
   platform: string;
+  cib: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
   setTitle: Dispatch<SetStateAction<string>>;
@@ -43,6 +44,7 @@ const renderTableRow = ({
   _id,
   title,
   platform,
+  cib,
   setOpen,
   setIsEdit,
   setTitle,
@@ -93,6 +95,11 @@ const renderTableRow = ({
       <TableCell>
         <Typography variant="h5" component="h5">
           {platform}
+        </Typography>
+      </TableCell>
+      <TableCell>
+        <Typography variant="h5" component="h5">
+          {cib && 'Check Mark'}
         </Typography>
       </TableCell>
       <TableCell>
@@ -169,6 +176,7 @@ export const GamesTable = ({
           _id: game._id,
           title: game.title,
           platform: game.platform,
+          cib: game.cib,
           setOpen,
           setIsEdit,
           setTitle,
@@ -201,7 +209,7 @@ export const GamesTable = ({
     setPage(0);
   };
 
-  const menuItems = [
+  const platforms = [
     'All Platforms',
     'Nintendo',
     'Nintendo 64',
@@ -209,12 +217,10 @@ export const GamesTable = ({
     'Super Nintendo',
   ];
 
-  const tableHeaders = ['Title', 'Platform', '', ''];
+  const tableHeaders = ['Title', 'Platform', 'CIB', '', ''];
 
   return (
     <Box>
-      {`Page: ${page}`} <br />
-      {`Rows Per Page ${rowsPerPage}`}
       <Box my={2}>
         <FormControl style={{ width: '200px' }}>
           <InputLabel id="platform">Platform</InputLabel>
@@ -225,7 +231,7 @@ export const GamesTable = ({
             label="Filter by Platform"
             onChange={handleFilterChange}
           >
-            {menuItems.map((item, index) => (
+            {platforms.map((item, index) => (
               <MenuItem key={index} value={item}>
                 {item}
               </MenuItem>
