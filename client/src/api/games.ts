@@ -30,6 +30,7 @@ const options = (
         body: JSON.stringify({
           title,
           platform,
+          cib,
           id,
         }),
       };

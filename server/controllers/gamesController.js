@@ -40,9 +40,9 @@ const updateGame = async (req, res) => {
       .status(204)
       .json({ message: `No game matches ID ${req.body.id}.` });
   }
-  if (req.body?.title) game.title = req.body.title;
-  if (req.body?.platform) game.platform = req.body.platform;
-  if (req.body?.cib) game.cib = req.body.cib;
+  game.title = req.body.title;
+  game.platform = req.body.platform;
+  game.cib = req.body.cib;
   const result = await game.save();
   res.json(result);
 };
