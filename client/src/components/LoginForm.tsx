@@ -10,8 +10,8 @@ import Logo from '../images/logo.png';
 
 const useStyles = makeStyles((theme) => ({
   loginWrapper: {
-    padding: theme.spacing(2),
-    margin: theme.spacing(2),
+    // padding: theme.spacing(2),
+    // margin: theme.spacing(2),
     width: 'auto',
     minWidth: 500,
     maxWidth: 540,
@@ -36,7 +36,7 @@ export const getHeadersWithAuth = () => ({
   Authorization: `Bearer ${localStorage.getItem('JWT')}`,
 });
 
-export const handleErrors = (res) => {
+export const handleErrors = (res: any) => {
   if (!res.ok) {
     alert(`Error: ${res.statusText}`);
   }

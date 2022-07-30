@@ -1,4 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -7,6 +12,28 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import { addGame, updateGame } from '../api/games';
+import { AlertColor } from '@mui/material';
+
+export interface Game {
+  _id: string;
+  title: string;
+  platform: string;
+}
+
+interface AddGameFormProps {
+  isEdit: boolean;
+  games: Game[];
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  setIsEdit: Dispatch<SetStateAction<boolean>>;
+  originalTitle: string;
+  originalPlatform: string;
+  id: string;
+  setTriggerRefresh: Dispatch<SetStateAction<boolean>>;
+  setShouldAlert: Dispatch<SetStateAction<boolean>>;
+  setAlertSeverity: Dispatch<SetStateAction<AlertColor>>;
+  setAlertMessage: Dispatch<SetStateAction<string>>;
+}
 
 export default function AddGameForm({
   isEdit,
@@ -21,7 +48,7 @@ export default function AddGameForm({
   setShouldAlert,
   setAlertSeverity,
   setAlertMessage,
-}) {
+}: AddGameFormProps) {
   const [title, setTitle] = useState('');
   const [platform, setPlatform] = useState('');
 
