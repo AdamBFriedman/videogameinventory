@@ -213,6 +213,8 @@ export const GamesTable = ({
 
   return (
     <Box>
+      {`Page: ${page}`} <br />
+      {`Rows Per Page ${rowsPerPage}`}
       <Box my={2}>
         <FormControl style={{ width: '200px' }}>
           <InputLabel id="platform">Platform</InputLabel>
