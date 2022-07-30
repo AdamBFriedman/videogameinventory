@@ -22,7 +22,8 @@ import TableFooterPagination from './tableFooterPagination';
 import Button from '@mui/material/Button';
 import { deleteGame } from '../api/games';
 import { Game } from './AddGameForm';
-import { AlertColor } from '@mui/material';
+import { AlertColor, CircularProgress } from '@mui/material';
+import SearchBar from './SearchBar';
 
 interface TableRow {
   _id: string;
@@ -149,7 +150,12 @@ export const GamesTable = ({
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [filter, setFilter] = useState('');
+  const [
+    videoGamesBeforeFilter,
+    setVideoGamesBeforeFilter,
+  ] = useState<Game[]>();
   const [videoGames, setVideoGames] = useState<Game[]>();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (filter === '' || filter === 'All Platforms') {
@@ -159,6 +165,7 @@ export const GamesTable = ({
         ...games.filter((game) => game.platform === filter),
       ]);
     }
+    setVideoGamesBeforeFilter(games);
   }, [games, filter]);
 
   const tableRows =
@@ -219,9 +226,40 @@ export const GamesTable = ({
 
   const tableHeaders = ['Title', 'Platform', 'CIB', '', ''];
 
+  const handleFilterGames = async (searchQuery: string) => {
+    try {
+      setIsLoading(true);
+      setVideoGames(
+        videoGamesBeforeFilter &&
+          videoGamesBeforeFilter.filter((game) => {
+            return (
+              game.title
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+              game.platform
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase())
+            );
+          })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
   return (
     <Box>
       <Box my={2}>
+        <SearchBar
+          placeholder="Search (Game)"
+          handleSearch={(str) => handleFilterGames(str)}
+        />
+        {isLoading && (
+          <Box ml={3}>
+            <CircularProgress />
+          </Box>
+        )}
         <FormControl style={{ width: '200px' }}>
           <InputLabel id="platform">Platform</InputLabel>
           <Select
