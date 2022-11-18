@@ -77,9 +77,13 @@ export default function AddGameForm({
   };
 
   const handleAddGame = async () => {
-    const duplicate =
-      games.find((game) => game.title === title) &&
-      games.find((game) => game.platform === platform);
+    const duplicate = games.find(
+      (game) =>
+        game.title === title &&
+        game.platform === platform &&
+        game.cib === cib
+    );
+
     if (duplicate) {
       setShouldAlert(true);
       setAlertSeverity('error');
@@ -88,6 +92,7 @@ export default function AddGameForm({
       );
       return;
     }
+
     try {
       const createGame = await addGame(title, platform, cib);
       if (createGame) {
