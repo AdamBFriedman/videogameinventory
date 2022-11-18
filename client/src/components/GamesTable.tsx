@@ -88,6 +88,7 @@ const renderTableRow = ({
     <TableRow
       key={_id}
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+      style={cib ? { background: '#FFFFE0' } : {}}
     >
       <TableCell>
         <Typography variant="h5" component="h5">
