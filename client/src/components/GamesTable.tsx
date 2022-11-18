@@ -24,6 +24,7 @@ import { deleteGame } from '../api/games';
 import { Game } from './AddGameForm';
 import { AlertColor, CircularProgress } from '@mui/material';
 import SearchBar from './SearchBar';
+import CheckIcon from '@mui/icons-material/Check';
 
 interface TableRow {
   _id: string;
@@ -100,7 +101,7 @@ const renderTableRow = ({
       </TableCell>
       <TableCell>
         <Typography variant="h5" component="h5">
-          {cib && 'Check Mark'}
+          {cib && <CheckIcon />}
         </Typography>
       </TableCell>
       <TableCell>
@@ -150,10 +151,8 @@ export const GamesTable = ({
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [filter, setFilter] = useState('');
-  const [
-    videoGamesBeforeFilter,
-    setVideoGamesBeforeFilter,
-  ] = useState<Game[]>();
+  const [videoGamesBeforeFilter, setVideoGamesBeforeFilter] =
+    useState<Game[]>();
   const [videoGames, setVideoGames] = useState<Game[]>();
   const [isLoading, setIsLoading] = useState(false);
 
