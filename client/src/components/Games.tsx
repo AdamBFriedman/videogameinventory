@@ -17,9 +17,8 @@ export default function Games() {
   const [platform, setPlatform] = useState('');
   const [id, setId] = useState('');
   const [shouldAlert, setShouldAlert] = useState(false);
-  const [alertSeverity, setAlertSeverity] = useState<AlertColor>(
-    'error'
-  );
+  const [alertSeverity, setAlertSeverity] =
+    useState<AlertColor>('error');
   const [alertMessage, setAlertMessage] = useState(
     'Error: Something went wrong.'
   );

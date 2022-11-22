@@ -31,6 +31,7 @@ interface TableRow {
   title: string;
   platform: string;
   cib: boolean;
+  index: number;
   setOpen: Dispatch<SetStateAction<boolean>>;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
   setTitle: Dispatch<SetStateAction<string>>;
@@ -47,6 +48,7 @@ const renderTableRow = ({
   title,
   platform,
   cib,
+  index,
   setOpen,
   setIsEdit,
   setTitle,
@@ -88,7 +90,7 @@ const renderTableRow = ({
     <TableRow
       key={_id}
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-      style={cib ? { background: '#FFFFE0' } : {}}
+      style={index % 2 ? { background: '#FFFFE0' } : {}}
     >
       <TableCell>
         <Typography variant="h5" component="h5">
@@ -178,12 +180,13 @@ export const GamesTable = ({
           ? 1
           : -1
       )
-      .map((game: Game) =>
+      .map((game: Game, index) =>
         renderTableRow({
           _id: game._id,
           title: game.title,
           platform: game.platform,
           cib: game.cib,
+          index,
           setOpen,
           setIsEdit,
           setTitle,
