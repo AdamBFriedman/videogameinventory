@@ -5,26 +5,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
 import Logo from '../images/logo.png';
-
-const useStyles = makeStyles((theme) => ({
-  loginWrapper: {
-    // padding: theme.spacing(2),
-    // margin: theme.spacing(2),
-    width: 'auto',
-    minWidth: 500,
-    maxWidth: 540,
-    minHeight: 400,
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  logo: {
-    width: 150,
-  },
-}));
 
 export const getHeaders = () => ({
   'Content-Type': 'application/json',
@@ -44,7 +25,6 @@ export const handleErrors = (res: any) => {
 };
 
 export default function LoginForm() {
-  const classes = useStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -79,10 +59,21 @@ export default function LoginForm() {
   };
 
   return (
-    <Card className={classes.loginWrapper}>
+    <Card
+      style={{
+        width: 'auto',
+        minWidth: 500,
+        maxWidth: 540,
+        minHeight: 400,
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Box>
         <Typography variant="h6" component="h1" textAlign="center">
-          <img className={classes.logo} alt="Mega Man" src={Logo} />
+          <img style={{ width: 150 }} alt="Mega Man" src={Logo} />
         </Typography>
         <TextField
           autoFocus
