@@ -257,7 +257,7 @@ export const GamesTable = ({
 
   return (
     <Box>
-      <Box my={2}>
+      <Box my={2} display={'flex'}>
         <SearchBar
           placeholder="Search (Game)"
           handleSearch={(str) => handleFilterGames(str)}
@@ -267,7 +267,7 @@ export const GamesTable = ({
             <CircularProgress />
           </Box>
         )}
-        <FormControl style={{ width: '200px' }}>
+        <FormControl style={{ width: '200px', marginLeft: '2em' }}>
           <InputLabel id="platform">Platform</InputLabel>
           <Select
             labelId="filter"
