@@ -5,7 +5,6 @@ const path = require('path');
 const cors = require('cors');
 const errorHandler = require('./middleware/errorHandler');
 const { logger } = require('./middleware/logEvents');
-const corsOptions = require('./config/corsOptions');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn');
@@ -18,7 +17,17 @@ connectDB();
 app.use(logger);
 
 // Cross Origin Resource Sharing
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: [
+      'https://videogameinventory.netlify.app',
+      'https://videogameinventory.herokuapp.com/auth',
+      'https://videogameinventory.herokuapp.com',
+    ],
+    preflightContinue: false,
+    credentials: true,
+  })
+);
 
 // Handle form data
 app.use(express.urlencoded({ extended: false }));

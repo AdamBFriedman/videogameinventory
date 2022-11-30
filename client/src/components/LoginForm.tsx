@@ -30,11 +30,14 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   const loginAsUser = async () => {
-    const JWT = await fetch('http://localhost:8000/auth', {
-      method: 'POST',
-      headers: getHeaders(),
-      body: JSON.stringify({ user: username, pwd: password }),
-    }).then(handleErrors);
+    const JWT = await fetch(
+      'https://videogameinventory.herokuapp.com/auth',
+      {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({ user: username, pwd: password }),
+      }
+    ).then(handleErrors);
 
     localStorage.setItem('JWT', JWT.accessToken);
 

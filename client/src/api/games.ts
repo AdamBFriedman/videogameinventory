@@ -1,7 +1,7 @@
 import { getHeadersWithAuth } from '../components/LoginForm';
 import { handleErrors } from '../components/LoginForm';
 
-const url = 'http://localhost:8000/games';
+const url = 'https://videogameinventory.herokuapp.com/games';
 
 const options = (
   type: string,
