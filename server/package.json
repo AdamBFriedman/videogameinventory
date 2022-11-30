@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "node server.js",
     "test": "react-scripts test",
     "dev": "nodemon server.js"
   },
